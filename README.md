@@ -1,17 +1,17 @@
-# CLAE
+# adversarial-contrastive-learning
 Code for contrastive learning with adversarial examples
 
 # Usage
 ##  Preprocess
 1. Clone the project to directory
 ```
-git clone https://github.com/chihhuiho/CLAE.git
+git clone https://github.com/tualgfhite/adversarial-contrastive-learning.git
 ```
 2. Initiate the conda environment
 ```
-cd CLAE
-conda env create -f environment.yml -n CLAE
-conda activate CLAE
+cd adversarial-contrastive-learning
+conda env create -f environment.yml -n ACL
+conda activate ACL
 ```
 3. Download the tinyImagenet dataset.
 ```
@@ -68,4 +68,4 @@ python main.py --alpha 1.0 --trial 1 --gpu 0 --adv  --eps 0.03 --bn_adv_momentum
 python eval_lr.py --alpha 1.0 --trial 1 --adv --gpu 0  --eps 0.03 --bn_adv_momentum 0.01 --dataset CIFAR100 
 python eval_knn.py --alpha 1.0 --trial 1 --adv --gpu 0  --eps 0.03 --bn_adv_momentum 0.01 --dataset CIFAR100
 ```
-# adversarial-contrastive-learning
+
