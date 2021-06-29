@@ -1,0 +1,44 @@
+total_steps=78200
+eval_step=391
+start_step=0
+warmup_steps=0
+
+workers=8
+
+low_dim=128
+batch_t=0.1
+batch_m=1
+num_classes=10
+batch_size=128
+lr=3e-2
+pool_len =4
+bn_adv_momentum = 0.01
+bn_adv_flag=True
+
+dropout_rate=0
+weight_decay=5e-4
+label_smoothing=0.1
+randaug = True
+randaug_n=2
+randaug_m=5
+no_bias_decay = False
+
+optim = 'sam'
+
+model = 'AdvPyramidNet'
+depth = 50
+alpha = 200
+
+attack_iter = 1
+attack_epsilon = 1
+attack_step_size = 1
+evaluate = True
+load = './ckeckpoint/cifar10/PyramidNet_5_no_norm/PyramidNet_5_no_norm_best.pth.tar'
+#'./ckeckpoint/cifar10/PyramidNet_5/PyramidNet_5_best.pth.tar'
+
+#multi crop params
+multicrop=True
+
+global_crops_scale=(0.4, 1.)
+local_crops_scale=(0.05, 0.4)
+local_crops_number=8

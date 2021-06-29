@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="dffb9be2-1bf6-4a6a-8511-70404ca61ffb" name="cpssgait">
+        <fileTransfer rootFolder="/home/cpssgait" accessType="SFTP" host="192.168.1.155" port="22" sshConfigId="3606b420-2e37-4ab4-ac34-dd75f2f91455" sshConfig="cpssgait@192.168.1.155:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

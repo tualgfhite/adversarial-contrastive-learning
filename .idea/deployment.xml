@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="cpssgait@192.168.1.155:22 password" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="PaddleGAN">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="cpssadv@192.168.1.233:22 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/JXY/CLAE" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="cpssface@192.168.1.224:22 password">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="cpssgait">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/JXY/CLAE" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="cpssgait@192.168.1.155:22 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/cpssgait/JXY/CLAE" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="cpssgait@192.168.1.155:22 password (1)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/cpssgait/JXY/CLAE" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
