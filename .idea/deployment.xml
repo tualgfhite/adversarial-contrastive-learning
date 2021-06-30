@@ -33,7 +33,7 @@
       <paths name="cpssgait@192.168.1.155:22 password">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/cpssgait/JXY/CLAE" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/JXY/CLAE" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

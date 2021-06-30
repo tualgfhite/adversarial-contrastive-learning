@@ -11,7 +11,8 @@ batch_m=1
 num_classes=10
 batch_size=128
 lr=3e-2
-pool_len =4
+pool_len = 4
+img_size = 32
 bn_adv_momentum = 0.01
 bn_adv_flag=True
 
