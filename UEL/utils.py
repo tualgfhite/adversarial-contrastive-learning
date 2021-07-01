@@ -1,8 +1,5 @@
 import torch
 import time
-
-from PIL import Image
-
 import datasets
 import torchvision.transforms as transforms
 import numpy as np
@@ -10,8 +7,6 @@ from sklearn.metrics.cluster import normalized_mutual_info_score
 import sklearn
 from sklearn.cluster import KMeans
 from tqdm import tqdm
-from torch.autograd import Variable
-import random
 
 # def kNN(epoch, net, trainloader, testloader, K, sigma, ndata, low_dim = 128):
 #     net.eval()
@@ -161,11 +156,6 @@ def kNN(epoch, net, trainloader, testloader, K, sigma, ndata, low_dim = 128):
 
     return top1*100./total
 
-def set_seed(seed):
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
 
 def eval_nmi_recall(epoch, net, lemniscate, testloader, feature_dim = 128):    
     net.eval()
@@ -280,105 +270,4 @@ def set_bn_to_eval(m):
     # 2. scale and shift parameters are still trainable
     classname = m.__class__.__name__
     if classname.find('BatchNorm') != -1:
-        m.eval()
-
-class DataAugmentationDINO(object):
-    def __init__(self, global_crops_scale, local_crops_scale, local_crops_number):
-        flip_and_color_jitter = transforms.Compose([
-            transforms.RandomHorizontalFlip(p=0.5),
-            transforms.RandomApply(
-                [transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1)],
-                p=0.8
-            ),
-            transforms.RandomGrayscale(p=0.2),
-        ])
-        normalize = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
-        ])
-
-        # first global crop
-        self.global_transfo1 = transforms.Compose([
-            transforms.RandomResizedCrop(32, scale=global_crops_scale, interpolation=Image.BICUBIC),
-            flip_and_color_jitter,
-            normalize,
-        ])
-        # second global crop
-        self.global_transfo2 = transforms.Compose([
-            transforms.RandomResizedCrop(32, scale=global_crops_scale, interpolation=Image.BICUBIC),
-            flip_and_color_jitter,
-
-            normalize,
-        ])
-        #Solarization(0.2),
-        # transformation for the local small crops
-        self.local_crops_number = local_crops_number
-        self.local_transfo = transforms.Compose([
-            transforms.RandomResizedCrop(16, scale=local_crops_scale, interpolation=Image.BICUBIC),
-            flip_and_color_jitter,
-            normalize,
-        ])
-
-    def __call__(self, image):
-        crops = []
-        crops.append(self.global_transfo1(image))
-        crops.append(self.global_transfo2(image))
-        for _ in range(self.local_crops_number):
-            crops.append(self.local_transfo(image))
-        return crops
-
-def get_multi_crop_dataset(root,args):
-    transform = DataAugmentationDINO(
-        args.global_crops_scale,
-        args.local_crops_scale,
-        args.local_crops_number,
-    )
-    train_dataset = datasets.CIFAR10(root, train=True,
-                     transform=transform,
-                     download=True)
-
-    return train_dataset
-
-class TwoCropsTransform:
-    """Take two random crops of one image as the query and key."""
-
-    def __init__(self, base_transform):
-        self.base_transform = base_transform
-
-    def __call__(self, x):
-        q = self.base_transform(x)
-        k = self.base_transform(x)
-        return [q, k]
-
-def get_dataset(root):
-    normalize = transforms.Normalize(mean=(0.4914, 0.4822, 0.4465),
-                                     std=(0.2023, 0.1994, 0.2010))
-    augmentation = [
-        transforms.RandomResizedCrop(32, scale=(0.2, 1.)),
-        transforms.RandomApply([
-            transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)  # not strengthened
-        ], p=0.8),
-        transforms.RandomGrayscale(p=0.2),
-        transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        normalize
-    ]
-
-    train_dataset = datasets.CIFAR10(root, train=True,
-                     transform=TwoCropsTransform(transforms.Compose(augmentation)),
-                     download=True)
-
-    return train_dataset
-
-def gen_adv(model, x, criterion, indexes,eps):
-        x_adv = Variable(x, requires_grad=True).cuda
-        adv_feat = model(x_adv, adv=True)
-        clean_feat = model(x, adv=True)
-        features = torch.cat((clean_feat, adv_feat), 0)
-        tmp_loss = criterion(features, indexes)
-        tmp_loss.backward()
-        # generate adversarial example
-        x_adv.data = x_adv.data + (eps * torch.sign(x_adv.grad.data))
-        x_adv.grad.data.zero_()
-        x_adv.requires_grad = False
-        return x_adv
+        m.eval()      
